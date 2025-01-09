@@ -15,15 +15,15 @@ public class LoginInterface {
         emailLabel.setForeground(Color.WHITE);
 
         JTextField emailField = new JTextField();
-        emailField.setBackground(Color.WHITE); // Fundal alb pentru caseta de text
-        emailField.setForeground(Color.BLACK); // Text negru
+        emailField.setBackground(Color.WHITE);
+        emailField.setForeground(Color.BLACK);
 
         JLabel passwordLabel = new JLabel("Parolă:");
         passwordLabel.setForeground(Color.WHITE);
 
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setBackground(Color.GRAY); // Fundal gri pentru parola
-        passwordField.setForeground(Color.WHITE); // Text alb
+        passwordField.setBackground(Color.GRAY);
+        passwordField.setForeground(Color.WHITE);
 
         JButton loginButton = new JButton("Autentificare");
         loginButton.setBackground(Color.BLACK);
@@ -49,11 +49,10 @@ public class LoginInterface {
                 JOptionPane.showMessageDialog(frame,
                         "Autentificare reușită!",
                         "Succes", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose(); // Închide fereastra de logare
+                frame.dispose();
 
-                // Deschide meniul principal
                 MainMenu mainMenu = new MainMenu();
-                mainMenu.showMenu(); // Apelăm metoda fără argumente
+                mainMenu.showMenu();
             } else {
                 JOptionPane.showMessageDialog(frame,
                         "Autentificare eșuată. Verifică email-ul și parola.",
@@ -61,11 +60,11 @@ public class LoginInterface {
             }
         });
 
-        // Eveniment pentru Creare Cont
+
         createAccountButton.addActionListener(e -> {
-            frame.dispose(); // Închide fereastra de logare
+            frame.dispose();
             CreateAccount createAccountApp = new CreateAccount();
-            createAccountApp.showCreateAccountWindow(frame); // Trimitem frame-ul curent pentru a reveni
+            createAccountApp.showCreateAccountWindow(frame);
         });
 
         frame.setVisible(true);
@@ -84,7 +83,7 @@ public class LoginInterface {
             preparedStatement.setString(2, password);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next(); // Returnează true dacă există un utilizator valid
+                return resultSet.next();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

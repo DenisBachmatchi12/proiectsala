@@ -62,7 +62,7 @@ public class CreateAccount {
         frame.add(createButton);
         frame.add(backButton);
 
-        // Eveniment pentru crearea contului
+
         createButton.addActionListener(e -> {
             String name = nameField.getText();
             String surname = surnameField.getText();
@@ -74,7 +74,7 @@ public class CreateAccount {
                 JOptionPane.showMessageDialog(frame,
                         "Toate câmpurile trebuie completate.",
                         "Eroare", JOptionPane.ERROR_MESSAGE);
-            } else if (!phone.matches("\\d{10}")) {  // Verificăm dacă telefonul are 10 cifre
+            } else if (!phone.matches("\\d{10}")) {
                 JOptionPane.showMessageDialog(frame,
                         "Numărul de telefon trebuie să conțină doar 10 cifre.",
                         "Eroare", JOptionPane.ERROR_MESSAGE);
@@ -83,10 +83,9 @@ public class CreateAccount {
             }
         });
 
-        // Eveniment pentru butonul Înapoi
         backButton.addActionListener(e -> {
-            frame.dispose(); // Închide fereastra curentă
-            previousFrame.setVisible(true); // Revine la fereastra anterioară
+            frame.dispose();
+            previousFrame.setVisible(true);
         });
 
         frame.setVisible(true);
@@ -104,7 +103,7 @@ public class CreateAccount {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, surname);
             preparedStatement.setString(3, email);
-            preparedStatement.setString(4, phone);  // Salvăm numărul de telefon
+            preparedStatement.setString(4, phone);
             preparedStatement.setString(5, password);
             preparedStatement.executeUpdate();
 

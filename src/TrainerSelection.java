@@ -43,13 +43,11 @@ public class TrainerSelection {
                         "Succes", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
 
-                // Notificăm MainMenu despre antrenorul selectat
                 Integer trainerId = getTrainerId(selectedTrainer);
                 if (trainerId != null) {
-                    mainMenu.setSelectedTrainerId(trainerId); // Setăm ID-ul antrenorului în MainMenu
+                    mainMenu.setSelectedTrainerId(trainerId);
 
-                    // Redeschidem meniul principal
-                    mainMenu.showMenu(); // Acum fără argument
+                    mainMenu.showMenu();
                 } else {
                     JOptionPane.showMessageDialog(frame,
                             "Eroare la găsirea antrenorului.",
@@ -63,14 +61,13 @@ public class TrainerSelection {
         });
 
         backButton.addActionListener(e -> {
-            frame.dispose(); // Închide fereastra curentă
-            mainMenu.showMenu(); // Revine la meniul principal
+            frame.dispose();
+            mainMenu.showMenu();
         });
 
         frame.setVisible(true);
     }
 
-    // Funcție pentru a popula ComboBox cu antrenori
     private void populateTrainerComboBox(JComboBox<String> trainerComboBox) {
         String DATABASE_URL = "jdbc:mysql://127.0.0.1:3306/sala";
         String DATABASE_USER = "root";
@@ -83,14 +80,13 @@ public class TrainerSelection {
 
             while (resultSet.next()) {
                 String trainerName = resultSet.getString("nume") + " " + resultSet.getString("prenume");
-                trainerComboBox.addItem(trainerName); // Adăugăm numele antrenorilor în ComboBox
+                trainerComboBox.addItem(trainerName);
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
     }
 
-    // Funcție pentru a obține ID-ul antrenorului pe baza numelui complet
     private Integer getTrainerId(String trainerName) {
         String DATABASE_URL = "jdbc:mysql://127.0.0.1:3306/sala";
         String DATABASE_USER = "root";
@@ -100,17 +96,17 @@ public class TrainerSelection {
         try (Connection connection = DriverManager.getConnection(DATABASE_URL, DATABASE_USER, DATABASE_PASSWORD);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, trainerName); // Setăm numele complet al antrenorului
+            preparedStatement.setString(1, trainerName);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt("id_antrenor"); // Returnăm ID-ul antrenorului
+                    return resultSet.getInt("id_antrenor");
                 }
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
-        return null; // Returnăm null dacă nu găsim un antrenor
+        return null;
     }
 }

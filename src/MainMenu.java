@@ -3,14 +3,17 @@ import java.awt.*;
 
 public class MainMenu {
 
-    private Integer selectedTrainerId = null; // Variabilă pentru a reține ID-ul antrenorului selectat
+    private Integer selectedTrainerId = null;
 
     public void showMenu() {
         JFrame frame = new JFrame("Meniu Principal");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        frame.setLayout(new GridLayout(6, 1, 10, 10));
-        frame.getContentPane().setBackground(Color.DARK_GRAY);
+        frame.setSize(600, 400);
+        frame.setLayout(new BorderLayout());
+
+        JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(7, 1, 10, 10));
+        menuPanel.setBackground(Color.DARK_GRAY);
 
         JButton createSubscriptionButton = new JButton("Creare Abonament");
         createSubscriptionButton.setBackground(Color.BLACK);
@@ -21,49 +24,65 @@ public class MainMenu {
         JButton selectTrainerButton = new JButton("Selectare Antrenor");
         selectTrainerButton.setBackground(Color.BLACK);
         selectTrainerButton.setForeground(Color.WHITE);
+        JButton viewInfoButton = new JButton("Vezi Abonamente și Rezervări");
+        viewInfoButton.setBackground(Color.BLACK);
+        viewInfoButton.setForeground(Color.WHITE);
         JButton exitButton = new JButton("Ieșire");
         exitButton.setBackground(Color.BLACK);
         exitButton.setForeground(Color.WHITE);
 
-        frame.add(createSubscriptionButton);
-        frame.add(makeReservationButton);
-        frame.add(selectTrainerButton);
-        frame.add(exitButton);
+        menuPanel.add(createSubscriptionButton);
+        menuPanel.add(makeReservationButton);
+        menuPanel.add(selectTrainerButton);
+        menuPanel.add(viewInfoButton);
+        menuPanel.add(exitButton);
 
-        // Eveniment pentru Creare Abonament
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setBackground(Color.LIGHT_GRAY);
+
+        // Adăugăm panourile în fereastra principală
+        frame.add(menuPanel, BorderLayout.WEST);
+        frame.add(infoPanel, BorderLayout.EAST);
+
         createSubscriptionButton.addActionListener(e -> {
-            frame.dispose(); // Închide meniul principal
+            frame.dispose();
             CreateSubscription subscriptionApp = new CreateSubscription();
-            subscriptionApp.showSubscriptionForm(); // Trimite frame-ul curent pentru a reveni
+            subscriptionApp.showSubscriptionForm();
         });
 
-        // Eveniment pentru Creare Rezervare
         makeReservationButton.addActionListener(e -> {
-            if (selectedTrainerId == null) { // Verifică dacă antrenorul a fost selectat
+            if (selectedTrainerId == null) {
                 JOptionPane.showMessageDialog(frame,
                         "Te rog să selectezi un antrenor înainte de a crea o rezervare.",
                         "Eroare", JOptionPane.ERROR_MESSAGE);
             } else {
-                frame.dispose(); // Închide meniul principal
+                frame.dispose();
                 Reservation reservationApp = new Reservation(selectedTrainerId);
-                reservationApp.showReservationWindow(); // Trimite frame-ul curent pentru a reveni
+                reservationApp.showReservationWindow();
             }
         });
 
         // Eveniment pentru Selectare Antrenor
         selectTrainerButton.addActionListener(e -> {
-            frame.dispose(); // Închide meniul principal
+            frame.dispose();
             TrainerSelection trainerSelectionApp = new TrainerSelection();
-            trainerSelectionApp.showTrainerSelection(this); // Trimite referința către MainMenu
+            trainerSelectionApp.showTrainerSelection(this);
         });
 
-        // Eveniment pentru Ieșire
+
+        viewInfoButton.addActionListener(e -> {
+            frame.dispose();
+            ViewSubscriptionsAndReservations viewInfoApp = new ViewSubscriptionsAndReservations();
+            viewInfoApp.showSubscriptionsAndReservationsWindow(frame);
+        });
+
+
         exitButton.addActionListener(e -> System.exit(0));
 
         frame.setVisible(true);
     }
 
-    // Setează ID-ul antrenorului selectat
     public void setSelectedTrainerId(Integer trainerId) {
         this.selectedTrainerId = trainerId;
     }

@@ -31,7 +31,6 @@ public class Reservation {
 
         JButton saveButton = new JButton("Salvează");
 
-        // Populare JComboBox cu tipuri de antrenament din baza de date
         populateTrainingComboBox(trainingComboBox);
 
         scheduleFrame.add(firstNameLabel);

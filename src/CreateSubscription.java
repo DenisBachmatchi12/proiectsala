@@ -16,11 +16,11 @@ public class CreateSubscription {
 
         JLabel durationLabel = new JLabel("Durata:");
         JTextField durationField = new JTextField();
-        durationField.setEditable(false); // Câmp calculat automat, nu editabil
+        durationField.setEditable(false);
 
         JLabel priceLabel = new JLabel("Preț:");
         JTextField priceField = new JTextField();
-        priceField.setEditable(false); // Prețul este calculat automat, nu editabil
+        priceField.setEditable(false);
 
         JButton calculateButton = new JButton("Calculează Durata");
         JButton saveButton = new JButton("Salvează");
@@ -34,7 +34,6 @@ public class CreateSubscription {
         frame.add(calculateButton);
         frame.add(saveButton);
 
-        // Eveniment pentru calcularea duratei și prețului
         calculateButton.addActionListener(e -> {
             String selectedType = (String) typeComboBox.getSelectedItem();
             if (selectedType != null) {
@@ -43,7 +42,6 @@ public class CreateSubscription {
             }
         });
 
-        // Eveniment pentru salvarea abonamentului
         saveButton.addActionListener(e -> {
             String selectedType = (String) typeComboBox.getSelectedItem();
             String duration = durationField.getText();
